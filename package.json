@@ -1,0 +1,28 @@
+{
+  "name": "homebridge-modbus",
+  "version": "1.0.0",
+  "description": "HomeBridge Plugin for ModbusTCP",
+  "keywords": [
+    "homebridge-plugin",
+    "modbus"
+  ],
+  "license": "LGPL-3.0",
+  "private": false,
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sclavel/homebridge-modbus.git"
+  },
+  "author": {
+    "name": "Stephane Clavel",
+    "email": "stephane.clavel@gmail.com"
+  },
+  "dependencies": {
+    "jsmodbus": ">=3.0.0",
+    "node-net-reconnect": ">=0.2.0"
+  },
+  "engines": {
+    "node": ">=12.0.0",
+    "homebridge": ">=0.4.0"
+  }
+}
