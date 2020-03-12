@@ -40,21 +40,20 @@ Example config.json:
                         "mask": "2",
                         "map": {"0": 0, "2": 1},
                         "validValues": [0, 1]
-                    }
+                    },
+                    "TargetHeatingCoolingState": {"value": 1, "validValues": [1]}
             	},
             	{
                     "name": "Water Heater",
-                    "type": "Thermostat",
+                    "type": "TemperatureSensor",
                     "subtype": "from boiler",
-                    "CurrentTemperature": "i2",
-                    "CurrentHeatingCoolingState": {"value": 1, "validValues": [1]}
+                    "CurrentTemperature": "i2"
             	},
             	{
                     "name": "Water Heater",
-                    "type": "Thermostat",
+                    "type": "TemperatureSensor",
                     "subtype": "to boiler",
-                    "CurrentTemperature": {"address": "r4", "readonly": true},
-                    "CurrentHeatingCoolingState": {"value": 1, "validValues": [1]}
+                    "CurrentTemperature": "i3"
             	}
             ]
         }
