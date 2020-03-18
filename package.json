@@ -1,6 +1,6 @@
 {
   "name": "homebridge-modbus",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HomeBridge Plugin for ModbusTCP",
   "keywords": [
     "homebridge-plugin",
