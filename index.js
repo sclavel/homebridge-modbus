@@ -1,7 +1,7 @@
 const Net = require('net')
 const Modbus = require('jsmodbus')
 
-var Homebridge, Service, Characteristic, UUIDGen, Log;
+var Homebridge, Service, Characteristic, UUIDGen, Log, logFile;
 module.exports = function (api) {
   Homebridge = api;
   Service = api.hap.Service;
@@ -270,7 +270,7 @@ class ModbusAccessory {
             if (characteristic.props.format == 'bool') {
               val = val ? 1 : 0;
             }
-            if (modbusMap.map) {
+            if ('map' in modbusMap) {
               for (let v1 in modbusMap.map) {
                 if (modbusMap.map[v1] == val) {
                   val = parseInt(v1);
@@ -278,7 +278,7 @@ class ModbusAccessory {
                 }
               }
             }
-            if (modbusMap.mask) {
+            if ('mask' in modbusMap) {
               val = val & modbusMap.mask;
             }
             this.platform.writeModbus(modbusType, modbusAdd, val);
@@ -302,11 +302,11 @@ class ModbusAccessory {
     if (Date.now() < this.lastUpdate + 1000 && !this.platform.firstInit) {
       return;
     }
-    if (map.mask) {
+    if ('mask' in map) {
       val = val & map.mask;
     }
-    if (map.map && (toString(val) in map.map)) {
-      val = map.map[toString(val)];
+    if ('map' in map && (val.toString() in map.map)) {
+      val = map.map[val.toString()];
     }
     if (characteristic.props.format == 'bool') {
       val = val ? true : false;
@@ -314,6 +314,12 @@ class ModbusAccessory {
     if (val != characteristic.value) {
       Log(this.name, characteristic.displayName, characteristic.value, "=>", val);
       characteristic.updateValue(val);
+      if (map.log) {
+        if (!logFile)
+          logFile = require('fs').createWriteStream("logfile.csv", {flags:'a'});
+        if (logFile)
+          logFile.write(new Date().toISOString()+','+this.name+','+val+"\n");
+      }
     }
   }
 
