@@ -14,22 +14,22 @@ Example config.json:
 {
     "platforms": [
         {
-       	    "platform": "Modbus",
-            "ip": "192.168.1.201",
+            "platform": "Modbus",
+            "ip": "20.0.0.11",
             "port": 502,
-            "pollFrequency": 1000,
+            "pollFrequency": 10000,
             "accessories": [
-            	{
+                {
                     "name": "Bedroom ventilation",
                     "type": "Fan",
                     "On": "r1"
-            	},
-            	{
+                },
+                {
                     "name": "Bedroom light",
                     "type": "Switch",
                     "On": "c1"
-            	},
-            	{
+                },
+                {
                     "name": "Bedroom",
                     "type": "Thermostat",
                     "TargetTemperature": "r2",
@@ -38,23 +38,40 @@ Example config.json:
                         "address": "r3",
                         "readonly": true,
                         "mask": "2",
-                        "map": {"0": 0, "2": 1},
-                        "validValues": [0, 1]
+                        "map": {
+                            "0": 0,
+                            "2": 1
+                        },
+                        "validValues": [
+                            0,
+                            1
+                        ]
                     },
-                    "TargetHeatingCoolingState": {"value": 1, "validValues": [1]}
-            	},
-            	{
+                    "TargetHeatingCoolingState": {
+                        "value": 1,
+                        "validValues": [
+                            1
+                        ]
+                    }
+                },
+                {
                     "name": "Water Heater",
                     "type": "TemperatureSensor",
                     "subtype": "from boiler",
-                    "CurrentTemperature": "i2"
-            	},
-            	{
+                    "CurrentTemperature": {
+                        "address": "r1",
+                        "len": 2
+                    }
+                },
+                {
                     "name": "Water Heater",
                     "type": "TemperatureSensor",
                     "subtype": "to boiler",
-                    "CurrentTemperature": "i3"
-            	}
+                    "CurrentTemperature": {
+                        "address": "i1",
+                        "len": 2
+                    }
+                }
             ]
         }
     ]

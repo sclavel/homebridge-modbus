@@ -274,7 +274,7 @@ class ModbusAccessory {
           modbusMap = cfg;
         }
         //  寄存器长度
-        if (!('len' in cfg)) {
+        if (!('len' in modbusMap)) {
           modbusMap.len = 1;
         }
 
