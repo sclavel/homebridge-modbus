@@ -18,6 +18,7 @@ Example config.json:
             "ip": "20.0.0.11",
             "port": 502,
             "pollFrequency": 10000,
+            "modbus_mode": 1,
             "accessories": [
                 {
                     "name": "Bedroom ventilation",
