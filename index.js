@@ -343,12 +343,7 @@ class ModbusAccessory {
     if (Date.now() < this.lastUpdate + 1000 && !this.platform.firstInit) {
       return;
     }
-    if ('mask' in map) {
-      val = val & map.mask;
-    }
-    if ('map' in map && (val.toString() in map.map)) {
-      val = map.map[val.toString()];
-    }
+
 
     if (characteristic.props.format == 'bool') {
       val = val ? true : false;
@@ -368,7 +363,16 @@ class ModbusAccessory {
       // 其它类型
     }
 
-   //Log("debug",this.name,characteristic,val);
+    if ('mask' in map) {
+      val = val & map.mask;
+    }
+    if ('map' in map && (val.toString() in map.map)) {
+      val = map.map[val.toString()];
+    }
+
+    
+
+   Log("debug",this.name,characteristic,val);
 
     if (val != characteristic.value) {
       Log(this.name, characteristic.displayName, characteristic.value, "=>", val);
