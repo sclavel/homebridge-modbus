@@ -136,6 +136,27 @@ Example config.json:
             }
           ]
         },
+         {
+            "platform": "Modbus",
+            "ip": "20.0.0.11",
+            "port": 502,
+            "modbus_mode": 1,
+            "pollFrequency": 3000,
+            "accessories": [
+                {
+                    "name": "Int测试",
+                    "type": "Lightbulb",
+                    "On": {
+                        "address": "r1",
+                        "len": 1
+                    },
+                    "ColorTemperature": {
+                        "address": "r3",
+                        "len": 2
+                    }
+                }
+            ]
+        },
         {
           "cameras": [
             {
