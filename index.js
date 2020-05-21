@@ -355,8 +355,6 @@ class ModbusAccessory {
         let v4 = (val[1]>>8)&0xFF;
         let buffer = Buffer.from([v1,v2,v3,v4]);
         val = buffer.readFloatLE(0)
-      }else{
-        return;
       }
      
     }else if(characteristic.props.format == 'uint32'){
