@@ -65,6 +65,11 @@ class ModbusPlatform {
   accessories(callback) {
     if (!this.config)
       return;
+    if (!this.config["accessories"])
+    {
+      Log("Error: no accessories defined");
+      return;
+    }
     this.status = [];
     this.charList = [];
     this.minModbus = [];
@@ -121,7 +126,7 @@ class ModbusPlatform {
     this.commandTime = Date.now();
 
     if (this.command.cmd == 'w') {
-      this.modbus[{'c':'WriteSingleCoil', 'r':'writeSingleRegister'}[this.command.type]](this.command.add-1, Math.round(this.command.val));
+      this.modbus[{'c':'writeSingleCoil', 'r':'writeSingleRegister'}[this.command.type]](this.command.add-1, Math.round(this.command.val));
       this.command = null;
       if (this.commands.length)
         this.socket.emit('modbus');
@@ -281,6 +286,9 @@ class ModbusAccessory {
             if ('mask' in modbusMap) {
               val = val & modbusMap.mask;
             }
+            if ('scale' in modbusMap) {
+              val = val * modbusMap.scale;
+            }
             this.platform.writeModbus(modbusType, modbusAdd, val);
             callback();
           });
@@ -301,6 +309,9 @@ class ModbusAccessory {
   update(characteristic, val, map) {
     if (Date.now() < this.lastUpdate + 1000 && !this.platform.firstInit) {
       return;
+    }
+    if ('scale' in modbusMap) {
+      val = val / modbusMap.scale;
     }
     if ('mask' in map) {
       val = val & map.mask;
