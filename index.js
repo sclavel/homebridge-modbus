@@ -310,8 +310,8 @@ class ModbusAccessory {
     if (Date.now() < this.lastUpdate + 1000 && !this.platform.firstInit) {
       return;
     }
-    if ('scale' in modbusMap) {
-      val = val / modbusMap.scale;
+    if ('scale' in map) {
+      val = val / map.scale;
     }
     if ('mask' in map) {
       val = val & map.mask;
